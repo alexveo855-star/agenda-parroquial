@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "build": "echo \"$FIREBASE_CONFIG_JS\" > firebase-config.js"
+  }
+}
