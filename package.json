@@ -1,5 +1,11 @@
 {
   "scripts": {
-    "build": "node create-config.js"
+    "build": "postcss ./src/input.css -o ./public/output.css && node create-config.js"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.13",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "postcss-cli": "^11.0.1"
   }
 }
