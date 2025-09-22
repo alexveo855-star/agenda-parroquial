@@ -1,5 +1,5 @@
 {
   "scripts": {
-    "build": "echo \"$FIREBASE_CONFIG_JS\" > firebase-config.js"
+    "build": "node create-config.js"
   }
 }
