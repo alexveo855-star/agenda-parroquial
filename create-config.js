@@ -18,5 +18,5 @@ fs.writeFileSync(path.join(PUBLIC_DIR, 'firebase-config.js'), configContent, 'ut
 console.log('El archivo public/firebase-config.js fue creado exitosamente.');
 
 // 3. Copiar agenda.html a la carpeta 'public'
-fs.copyFileSync('agenda.html', path.join(PUBLIC_DIR, 'agenda.html'));
-console.log('agenda.html fue copiado a /public exitosamente.');
+fs.copyFileSync('index.html', path.join(PUBLIC_DIR, 'index.html'));
+console.log('index.html fue copiado a /public exitosamente.');
