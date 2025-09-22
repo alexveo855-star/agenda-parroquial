@@ -453,7 +453,7 @@
             let currentUserIsParroco = false;
             let currentDate = new Date();
             let data = {
-                calendar: {}, directory: [], agenda: [], specificTasks: [],
+                calendar: {}, directory: [], agenda: [], specificTasks: [], announcements: [],
                 manual: { habilidades: '' }, revisionTasks: getInitialRevisionTasks(), revisionChecklists: {}
             }; 
             let selectedDateKey = null;
@@ -475,6 +475,7 @@
             const openRevisionesBtn = document.getElementById('open-revisiones-btn');
             const openHabilidadesBtn = document.getElementById('open-habilidades-btn');
             const openTareasBtn = document.getElementById('open-tareas-btn');
+            const openAnunciosBtn = document.getElementById('open-anuncios-btn');
             
             const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
             const dayNames = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
@@ -619,7 +620,7 @@
                     listeners.forEach(unsub => unsub());
                     listeners = [];
                 }
-                const collectionsToListen = ['calendar', 'directory', 'agenda', 'specificTasks', 'revisionChecklists'];
+                const collectionsToListen = ['calendar', 'directory', 'agenda', 'specificTasks', 'revisionChecklists', 'announcements'];
                 collectionsToListen.forEach(name => {
                     const q = query(getCollectionRef(name));
                     const unsub = onSnapshot(q, (querySnapshot) => {
@@ -634,6 +635,7 @@
                         if (name === 'directory') { renderDirectory(); }
                         if (name === 'agenda') { renderAgenda(); }
                         if (name === 'specificTasks') { renderSpecificTasks(); }
+                        if (name === 'announcements') { renderAnuncios(); }
                     }, (error) => console.error(`Error listening to ${name}:`, error));
                     listeners.push(unsub);
                 });
@@ -752,6 +754,42 @@
 
             function renderSpecificTasks() { /* ... similar logic to renderAgenda/Directory ... */ }
 
+            // --- Announcements Logic ---
+            function renderAnuncios() {
+                const anunciosListEl = document.getElementById('anuncios-list');
+                const addAnuncioForm = document.getElementById('add-anuncio-form');
+                if (!anunciosListEl || !addAnuncioForm) return;
+
+                // Show form only for Parroco
+                if (currentUserIsParroco) {
+                    addAnuncioForm.classList.remove('hidden');
+                } else {
+                    addAnuncioForm.classList.add('hidden');
+                }
+
+                const sortedAnuncios = [...(data.announcements || [])].sort((a, b) => b.createdAt - a.createdAt);
+
+                anunciosListEl.innerHTML = sortedAnuncios.length === 0 
+                    ? '<p class="text-gray-500 italic text-center mt-4">No hay anuncios en este momento.</p>' 
+                    : sortedAnuncios.map(anuncio => {
+                        const deleteButton = currentUserIsParroco 
+                            ? `<button data-id="${anuncio.id}" class="delete-anuncio-btn text-sm text-red-500 hover:underline">Eliminar</button>` 
+                            : '';
+                        const date = new Date(anuncio.createdAt).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+
+                        return `
+                            <div class="p-4 border border-gray-200 rounded-lg bg-white shadow-sm">
+                                <div class="flex justify-between items-start">
+                                    <h4 class="font-bold text-md text-blue-700">${anuncio.title}</h4>
+                                    ${deleteButton}
+                                </div>
+                                <p class="text-sm text-gray-700 mt-2 whitespace-pre-wrap">${anuncio.content}</p>
+                                <p class="text-xs text-gray-400 mt-3 text-right">Publicado por ${anuncio.createdBy} el ${date}</p>
+                            </div>
+                        `;
+                }).join('');
+            }
+
             // --- Event Listeners and other functions ---
             function init() {
                 initFirebase();
@@ -783,6 +821,58 @@
                     manualModal.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
                     agendaContent.classList.add('active');
                 });
+
+                openAnunciosBtn.addEventListener('click', () => {
+                    modalManager.open(document.getElementById('anuncios-modal'));
+                });
+
+                document.getElementById('add-anuncio-form').addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const titleInput = document.getElementById('anuncio-title');
+                    const contentInput = document.getElementById('anuncio-content');
+                    const title = titleInput.value.trim();
+                    const content = contentInput.value.trim();
+
+                    if (title && content && currentUserIsParroco) {
+                        try {
+                            await addDoc(getCollectionRef('announcements'), {
+                                title: title,
+                                content: content,
+                                createdBy: currentUser,
+                                createdAt: Date.now()
+                            });
+                            titleInput.value = '';
+                            contentInput.value = '';
+                        } catch (error) {
+                            console.error("Error adding announcement: ", error);
+                            alert('Hubo un error al publicar el anuncio.');
+                        }
+                    }
+                });
+
+                document.getElementById('anuncios-list').addEventListener('click', async (e) => {
+                    if (e.target.classList.contains('delete-anuncio-btn') && currentUserIsParroco) {
+                        const anuncioId = e.target.dataset.id;
+                        // Using a simple confirm dialog for now
+                        const isConfirmed = await new Promise(resolve => {
+                            const confirmModal = document.getElementById('confirm-modal');
+                            document.getElementById('confirm-modal-text').textContent = '¿Estás seguro de que quieres eliminar este anuncio? Esta acción no se puede deshacer.';
+                            modalManager.open(confirmModal);
+                            document.getElementById('confirm-modal-confirm-btn').onclick = () => resolve(true);
+                            document.getElementById('confirm-modal-cancel-btn').onclick = () => resolve(false);
+                        }).finally(() => modalManager.close(document.getElementById('confirm-modal')));
+
+                        if (isConfirmed) {
+                            try {
+                                await deleteDoc(getDocRef('announcements', anuncioId));
+                            } catch (error) {
+                                console.error("Error deleting announcement: ", error);
+                                alert('Hubo un error al eliminar el anuncio.');
+                            }
+                        }
+                    }
+                });
+
                  // Add other nav button listeners here
             }
             
