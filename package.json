@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "build": "ls -l node_modules/.bin && npx postcss ./src/input.css -o ./public/output.css && node scripts/create-config.js"
+    "build": "chmod +x node_modules/.bin/postcss && npx postcss ./src/input.css -o ./public/output.css && node scripts/create-config.js"
   },
   "devDependencies": {
     "@tailwindcss/cli": "^4.1.13",
