@@ -875,6 +875,30 @@
                     }
                 });
 
+                 openRevisionesBtn.addEventListener('click', () => {
+                    const manualModal = document.getElementById('manual-modal');
+                    const revisionesContent = document.getElementById('tab-content-revisiones');
+                    
+                    modalManager.open(manualModal);
+                    manualModal.querySelector('#manual-modal-title').textContent = 'Revisiones';
+                    manualModal.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+                    revisionesContent.classList.add('active');
+                });
+
+                openHabilidadesBtn.addEventListener('click', () => {
+                    const manualModal = document.getElementById('manual-modal');
+                    const habilidadesContent = document.getElementById('tab-content-habilidades');
+                    
+                    modalManager.open(manualModal);
+                    manualModal.querySelector('#manual-modal-title').textContent = 'Habilidades';
+                    manualModal.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+                    habilidadesContent.classList.add('active');
+                });
+
+                openTareasBtn.addEventListener('click', () => {
+                    modalManager.open(document.getElementById('add-task-modal'));
+                });
+
                  // Add other nav button listeners here
             }
             
