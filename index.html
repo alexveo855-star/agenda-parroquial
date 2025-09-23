@@ -98,6 +98,9 @@
         .main-nav-btn {
             @apply flex items-center gap-2 text-gray-600 bg-transparent hover:bg-blue-50 hover:text-blue-600 font-semibold py-2 px-3 rounded-lg text-sm transition-colors duration-200;
         }
+        .main-nav-btn.active {
+            @apply bg-blue-100 text-blue-600;
+        }
         .animate-shake {
             animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
             transform: translate3d(0, 0, 0);
@@ -474,6 +477,7 @@
             const openHabilidadesBtn = document.getElementById('open-habilidades-btn');
             const openTareasBtn = document.getElementById('open-tareas-btn');
             const openAnunciosBtn = document.getElementById('open-anuncios-btn');
+            const navButtons = document.querySelectorAll('.main-nav-btn');
             
             const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
             const dayNames = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
@@ -491,9 +495,17 @@
                 };
             }
 
+            function setActiveNav(button) {
+                navButtons.forEach(btn => btn.classList.remove('active'));
+                if (button) {
+                    button.classList.add('active');
+                }
+            }
+
             // --- Modal Manager ---
             const modalManager = {
-                open: (modalEl) => {
+                open: (modalEl, navBtn) => {
+                    setActiveNav(navBtn);
                     modalEl.classList.remove('hidden');
                     modalEl.classList.add('flex');
                     setTimeout(() => {
@@ -502,6 +514,7 @@
                     }, 10);
                 },
                 close: (modalEl) => {
+                    setActiveNav(null);
                     const innerModal = modalEl.querySelector('.transform');
                     if (innerModal) innerModal.classList.add('scale-95', 'opacity-0');
                     setTimeout(() => modalEl.classList.add('hidden'), 300);
@@ -795,7 +808,7 @@
                         // openDayModal(dayCell.dataset.date);
                     }
                 });
-                openDirectoryBtn.addEventListener('click', () => modalManager.open(document.getElementById('directory-modal')));
+                openDirectoryBtn.addEventListener('click', () => modalManager.open(document.getElementById('directory-modal'), openDirectoryBtn));
                 openAgendaBtn.addEventListener('click', () => {
                     const manualModal = document.getElementById('manual-modal');
                     const agendaContent = document.getElementById('tab-content-agenda');
@@ -806,14 +819,14 @@
                     }
 
                     renderAgenda();
-                    modalManager.open(manualModal);
+                    modalManager.open(manualModal, openAgendaBtn);
                     manualModal.querySelector('#manual-modal-title').textContent = 'Agenda Parroquial';
                     manualModal.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
                     agendaContent.classList.add('active');
                 });
 
                 openAnunciosBtn.addEventListener('click', () => {
-                    modalManager.open(document.getElementById('anuncios-modal'));
+                    modalManager.open(document.getElementById('anuncios-modal'), openAnunciosBtn);
                 });
 
                 document.getElementById('add-anuncio-form').addEventListener('submit', async (e) => {
@@ -867,7 +880,7 @@
                     const manualModal = document.getElementById('manual-modal');
                     const revisionesContent = document.getElementById('tab-content-revisiones');
                     
-                    modalManager.open(manualModal);
+                    modalManager.open(manualModal, openRevisionesBtn);
                     manualModal.querySelector('#manual-modal-title').textContent = 'Revisiones';
                     manualModal.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
                     revisionesContent.classList.add('active');
@@ -877,14 +890,14 @@
                     const manualModal = document.getElementById('manual-modal');
                     const habilidadesContent = document.getElementById('tab-content-habilidades');
                     
-                    modalManager.open(manualModal);
+                    modalManager.open(manualModal, openHabilidadesBtn);
                     manualModal.querySelector('#manual-modal-title').textContent = 'Habilidades';
                     manualModal.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
                     habilidadesContent.classList.add('active');
                 });
 
                 openTareasBtn.addEventListener('click', () => {
-                    modalManager.open(document.getElementById('add-task-modal'));
+                    modalManager.open(document.getElementById('add-task-modal'), openTareasBtn);
                 });
 
                  // Add other nav button listeners here
