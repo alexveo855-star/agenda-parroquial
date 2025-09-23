@@ -94,11 +94,12 @@
         .btn-disabled {
             @apply bg-gray-200 text-gray-400 cursor-not-allowed;
         }
-        .main-nav-btn {
-            @apply flex items-center gap-2 text-gray-600 bg-transparent hover:bg-blue-50 hover:text-blue-600 font-semibold py-2 px-3 rounded-full text-sm transition-colors duration-200;
+        .main-nav-btn.active .active-gradient {
+            background-image: linear-gradient(#e2e2e2, #fefefe);
         }
-        .main-nav-btn.active {
-            @apply bg-blue-100 text-blue-600;
+        .main-nav-btn.active span,
+        .main-nav-btn.active svg {
+            color: #2563eb; /* blue-600 */
         }
         .animate-shake {
             animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
@@ -115,7 +116,7 @@
 <body class="text-gray-800 bg-gray-50">
 
     <div id="app" class="flex flex-col h-screen">
-        <header class="bg-white p-3 flex items-center justify-between border-b border-gray-200 gap-6 w-full">
+        <header class="bg-white p-2 flex items-center justify-between border-b border-gray-200 gap-6 w-full">
             <div class="flex items-center gap-4">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
                   <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
@@ -125,34 +126,58 @@
 
             <div class="flex items-center gap-4">
                 <nav class="flex items-center gap-2">
-                    <button id="open-directory-btn" class="main-nav-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-2 0v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm5 4a1 1 0 100 2h2a1 1 0 100-2H9z" clip-rule="evenodd" /> </svg>
-                        <span>Directorio</span>
+                    <button id="open-directory-btn" class="main-nav-btn group w-auto h-12 inline-flex transition-all duration-300 overflow-visible p-1 rounded-full">
+                        <div class="w-full h-full bg-[linear-gradient(to_top,#ececec,#fff)] overflow-hidden shadow-[0_0_1px_rgba(0,0,0,0.07),0_0_1px_rgba(0,0,0,0.05),0_3px_3px_rgba(0,0,0,0.25),0_1px_3px_rgba(0,0,0,0.12)] p-1 rounded-full group-hover:shadow-none duration-300">
+                            <div class="active-gradient w-full h-full text-lg justify-center text-[#101010] bg-[linear-gradient(#f4f4f4,#fefefe)] group-hover:bg-[linear-gradient(#e2e2e2,#fefefe)] duration-200 items-center font-medium gap-2 inline-flex overflow-hidden px-4 py-2 rounded-full group-hover:text-blue-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-2 0v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm5 4a1 1 0 100 2h2a1 1 0 100-2H9z" clip-rule="evenodd" /> </svg>
+                                <span>Directorio</span>
+                            </div>
+                        </div>
                     </button>
-                    <button id="open-agenda-btn" class="main-nav-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" /> </svg>
-                        <span>Agenda</span>
+                    <button id="open-agenda-btn" class="main-nav-btn group w-auto h-12 inline-flex transition-all duration-300 overflow-visible p-1 rounded-full">
+                        <div class="w-full h-full bg-[linear-gradient(to_top,#ececec,#fff)] overflow-hidden shadow-[0_0_1px_rgba(0,0,0,0.07),0_0_1px_rgba(0,0,0,0.05),0_3px_3px_rgba(0,0,0,0.25),0_1px_3px_rgba(0,0,0,0.12)] p-1 rounded-full group-hover:shadow-none duration-300">
+                            <div class="active-gradient w-full h-full text-lg justify-center text-[#101010] bg-[linear-gradient(#f4f4f4,#fefefe)] group-hover:bg-[linear-gradient(#e2e2e2,#fefefe)] duration-200 items-center font-medium gap-2 inline-flex overflow-hidden px-4 py-2 rounded-full group-hover:text-blue-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" /> </svg>
+                                <span>Agenda</span>
+                            </div>
+                        </div>
                     </button>
-                    <button id="open-anuncios-btn" class="main-nav-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M18 3a1 1 0 00-1.447-.894L8.763 6H5a1 1 0 00-1 1v6a1 1 0 001 1h3.763l7.79 3.894A1 1 0 0018 17V3zM16 7.938V12.06l-2.764-1.382L16 7.938zM5 8h2v4H5V8z" clip-rule="evenodd" />
-                        </svg>
-                        <span>Anuncios</span>
+                    <button id="open-anuncios-btn" class="main-nav-btn group w-auto h-12 inline-flex transition-all duration-300 overflow-visible p-1 rounded-full">
+                        <div class="w-full h-full bg-[linear-gradient(to_top,#ececec,#fff)] overflow-hidden shadow-[0_0_1px_rgba(0,0,0,0.07),0_0_1px_rgba(0,0,0,0.05),0_3px_3px_rgba(0,0,0,0.25),0_1px_3px_rgba(0,0,0,0.12)] p-1 rounded-full group-hover:shadow-none duration-300">
+                            <div class="active-gradient w-full h-full text-lg justify-center text-[#101010] bg-[linear-gradient(#f4f4f4,#fefefe)] group-hover:bg-[linear-gradient(#e2e2e2,#fefefe)] duration-200 items-center font-medium gap-2 inline-flex overflow-hidden px-4 py-2 rounded-full group-hover:text-blue-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M18 3a1 1 0 00-1.447-.894L8.763 6H5a1 1 0 00-1 1v6a1 1 0 001 1h3.763l7.79 3.894A1 1 0 0018 17V3zM16 7.938V12.06l-2.764-1.382L16 7.938zM5 8h2v4H5V8z" clip-rule="evenodd" />
+                                </svg>
+                                <span>Anuncios</span>
+                            </div>
+                        </div>
                     </button>
                 </nav>
                 <div class="w-px h-6 bg-gray-300"></div>
                 <nav class="flex items-center gap-2">
-                    <button id="open-revisiones-btn" class="main-nav-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /> </svg>
-                        <span>Revisiones</span>
+                    <button id="open-revisiones-btn" class="main-nav-btn group w-auto h-12 inline-flex transition-all duration-300 overflow-visible p-1 rounded-full">
+                        <div class="w-full h-full bg-[linear-gradient(to_top,#ececec,#fff)] overflow-hidden shadow-[0_0_1px_rgba(0,0,0,0.07),0_0_1px_rgba(0,0,0,0.05),0_3px_3px_rgba(0,0,0,0.25),0_1px_3px_rgba(0,0,0,0.12)] p-1 rounded-full group-hover:shadow-none duration-300">
+                            <div class="active-gradient w-full h-full text-lg justify-center text-[#101010] bg-[linear-gradient(#f4f4f4,#fefefe)] group-hover:bg-[linear-gradient(#e2e2e2,#fefefe)] duration-200 items-center font-medium gap-2 inline-flex overflow-hidden px-4 py-2 rounded-full group-hover:text-blue-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /> </svg>
+                                <span>Revisiones</span>
+                            </div>
+                        </div>
                     </button>
-                    <button id="open-habilidades-btn" class="main-nav-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /> </svg>
-                        <span>Habilidades</span>
+                    <button id="open-habilidades-btn" class="main-nav-btn group w-auto h-12 inline-flex transition-all duration-300 overflow-visible p-1 rounded-full">
+                        <div class="w-full h-full bg-[linear-gradient(to_top,#ececec,#fff)] overflow-hidden shadow-[0_0_1px_rgba(0,0,0,0.07),0_0_1px_rgba(0,0,0,0.05),0_3px_3px_rgba(0,0,0,0.25),0_1px_3px_rgba(0,0,0,0.12)] p-1 rounded-full group-hover:shadow-none duration-300">
+                            <div class="active-gradient w-full h-full text-lg justify-center text-[#101010] bg-[linear-gradient(#f4f4f4,#fefefe)] group-hover:bg-[linear-gradient(#e2e2e2,#fefefe)] duration-200 items-center font-medium gap-2 inline-flex overflow-hidden px-4 py-2 rounded-full group-hover:text-blue-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /> </svg>
+                                <span>Habilidades</span>
+                            </div>
+                        </div>
                     </button>
-                    <button id="open-tareas-btn" class="main-nav-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a1 1 0 011-1h14a1 1 0 110 2H3a1 1 0 01-1-1z" /> </svg>
-                        <span>Tareas</span>
+                    <button id="open-tareas-btn" class="main-nav-btn group w-auto h-12 inline-flex transition-all duration-300 overflow-visible p-1 rounded-full">
+                        <div class="w-full h-full bg-[linear-gradient(to_top,#ececec,#fff)] overflow-hidden shadow-[0_0_1px_rgba(0,0,0,0.07),0_0_1px_rgba(0,0,0,0.05),0_3px_3px_rgba(0,0,0,0.25),0_1px_3px_rgba(0,0,0,0.12)] p-1 rounded-full group-hover:shadow-none duration-300">
+                            <div class="active-gradient w-full h-full text-lg justify-center text-[#101010] bg-[linear-gradient(#f4f4f4,#fefefe)] group-hover:bg-[linear-gradient(#e2e2e2,#fefefe)] duration-200 items-center font-medium gap-2 inline-flex overflow-hidden px-4 py-2 rounded-full group-hover:text-blue-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a1 1 0 011-1h14a1 1 0 110 2H3a1 1 0 01-1-1z" /> </svg>
+                                <span>Tareas</span>
+                            </div>
+                        </div>
                     </button>
                 </nav>
                 <div id="current-user-display" class="text-sm text-gray-700 font-semibold hidden bg-gray-100 px-3 py-1 rounded-full items-center gap-2"></div>
@@ -580,7 +605,8 @@
                 const email = document.getElementById('login-email').value;
                 const password = document.getElementById('login-password').value;
                 const loginError = document.getElementById('login-error');
-                
+                loginError.textContent = ''; // Clear previous errors
+
                 try {
                     await signInWithEmailAndPassword(auth, email, password);
                 } catch (error) {
