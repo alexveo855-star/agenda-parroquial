@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "prebuild": "node scripts/create-config.js",
     "build": "npx postcss ./src/input.css -o ./public/output.css"
   },
   "devDependencies": {
