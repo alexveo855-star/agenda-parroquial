@@ -40,6 +40,12 @@
         .calendar-day {
             min-height: 110px;
         }
+
+        @media (max-width: 640px) {
+            .calendar-day {
+                min-height: 80px;
+            }
+        }
         
         .event-dot {
             width: 6px;
@@ -116,66 +122,66 @@
 <body class="text-gray-800 bg-gray-50">
 
     <div id="app" class="flex flex-col h-screen">
-        <header class="bg-white p-2 flex items-center justify-between border-b border-gray-200 gap-6 w-full">
-            <div class="flex items-center gap-4">
+        <header class="bg-white p-2 flex items-center justify-between border-b border-gray-200 gap-2 md:gap-6 w-full">
+            <div class="flex items-center gap-2 md:gap-4">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
                   <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
                 </svg>
-                <h1 class="text-2xl font-bold text-gray-800 flex-shrink-0">Asistente Parroquial</h1>
+                <h1 class="text-xl md:text-2xl font-bold text-gray-800 flex-shrink-0">Asistente Parroquial</h1>
             </div>
 
-            <div class="flex items-center gap-4">
-                <nav class="flex items-center gap-2">
+            <div class="flex items-center gap-2 md:gap-4">
+                <nav class="flex items-center gap-1 md:gap-2">
                     <button id="open-directory-btn" class="main-nav-btn group w-auto h-12 inline-flex transition-all duration-300 overflow-visible p-1 rounded-full">
                         <div class="w-full h-full bg-[linear-gradient(to_top,#ececec,#fff)] overflow-hidden shadow-[0_0_1px_rgba(0,0,0,0.07),0_0_1px_rgba(0,0,0,0.05),0_3px_3px_rgba(0,0,0,0.25),0_1px_3px_rgba(0,0,0,0.12)] p-1 rounded-full group-hover:shadow-none duration-300">
-                            <div class="active-gradient w-full h-full text-lg justify-center text-[#101010] bg-[linear-gradient(#f4f4f4,#fefefe)] group-hover:bg-[linear-gradient(#e2e2e2,#fefefe)] duration-200 items-center font-medium gap-2 inline-flex overflow-hidden px-4 py-2 rounded-full group-hover:text-blue-600">
+                            <div class="active-gradient w-full h-full text-base md:text-lg justify-center text-[#101010] bg-[linear-gradient(#f4f4f4,#fefefe)] group-hover:bg-[linear-gradient(#e2e2e2,#fefefe)] duration-200 items-center font-medium gap-2 inline-flex overflow-hidden px-3 md:px-4 py-2 rounded-full group-hover:text-blue-600">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-2 0v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm5 4a1 1 0 100 2h2a1 1 0 100-2H9z" clip-rule="evenodd" /> </svg>
-                                <span>Directorio</span>
+                                <span class="hidden md:inline">Directorio</span>
                             </div>
                         </div>
                     </button>
                     <button id="open-agenda-btn" class="main-nav-btn group w-auto h-12 inline-flex transition-all duration-300 overflow-visible p-1 rounded-full">
                         <div class="w-full h-full bg-[linear-gradient(to_top,#ececec,#fff)] overflow-hidden shadow-[0_0_1px_rgba(0,0,0,0.07),0_0_1px_rgba(0,0,0,0.05),0_3px_3px_rgba(0,0,0,0.25),0_1px_3px_rgba(0,0,0,0.12)] p-1 rounded-full group-hover:shadow-none duration-300">
-                            <div class="active-gradient w-full h-full text-lg justify-center text-[#101010] bg-[linear-gradient(#f4f4f4,#fefefe)] group-hover:bg-[linear-gradient(#e2e2e2,#fefefe)] duration-200 items-center font-medium gap-2 inline-flex overflow-hidden px-4 py-2 rounded-full group-hover:text-blue-600">
+                            <div class="active-gradient w-full h-full text-base md:text-lg justify-center text-[#101010] bg-[linear-gradient(#f4f4f4,#fefefe)] group-hover:bg-[linear-gradient(#e2e2e2,#fefefe)] duration-200 items-center font-medium gap-2 inline-flex overflow-hidden px-3 md:px-4 py-2 rounded-full group-hover:text-blue-600">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" /> </svg>
-                                <span>Agenda</span>
+                                <span class="hidden md:inline">Agenda</span>
                             </div>
                         </div>
                     </button>
                     <button id="open-anuncios-btn" class="main-nav-btn group w-auto h-12 inline-flex transition-all duration-300 overflow-visible p-1 rounded-full">
                         <div class="w-full h-full bg-[linear-gradient(to_top,#ececec,#fff)] overflow-hidden shadow-[0_0_1px_rgba(0,0,0,0.07),0_0_1px_rgba(0,0,0,0.05),0_3px_3px_rgba(0,0,0,0.25),0_1px_3px_rgba(0,0,0,0.12)] p-1 rounded-full group-hover:shadow-none duration-300">
-                            <div class="active-gradient w-full h-full text-lg justify-center text-[#101010] bg-[linear-gradient(#f4f4f4,#fefefe)] group-hover:bg-[linear-gradient(#e2e2e2,#fefefe)] duration-200 items-center font-medium gap-2 inline-flex overflow-hidden px-4 py-2 rounded-full group-hover:text-blue-600">
+                            <div class="active-gradient w-full h-full text-base md:text-lg justify-center text-[#101010] bg-[linear-gradient(#f4f4f4,#fefefe)] group-hover:bg-[linear-gradient(#e2e2e2,#fefefe)] duration-200 items-center font-medium gap-2 inline-flex overflow-hidden px-3 md:px-4 py-2 rounded-full group-hover:text-blue-600">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M18 3a1 1 0 00-1.447-.894L8.763 6H5a1 1 0 00-1 1v6a1 1 0 001 1h3.763l7.79 3.894A1 1 0 0018 17V3zM16 7.938V12.06l-2.764-1.382L16 7.938zM5 8h2v4H5V8z" clip-rule="evenodd" />
                                 </svg>
-                                <span>Anuncios</span>
+                                <span class="hidden md:inline">Anuncios</span>
                             </div>
                         </div>
                     </button>
                 </nav>
-                <div class="w-px h-6 bg-gray-300"></div>
-                <nav class="flex items-center gap-2">
+                <div class="w-px h-6 bg-gray-300 hidden md:block"></div>
+                <nav class="flex items-center gap-1 md:gap-2">
                     <button id="open-revisiones-btn" class="main-nav-btn group w-auto h-12 inline-flex transition-all duration-300 overflow-visible p-1 rounded-full">
                         <div class="w-full h-full bg-[linear-gradient(to_top,#ececec,#fff)] overflow-hidden shadow-[0_0_1px_rgba(0,0,0,0.07),0_0_1px_rgba(0,0,0,0.05),0_3px_3px_rgba(0,0,0,0.25),0_1px_3px_rgba(0,0,0,0.12)] p-1 rounded-full group-hover:shadow-none duration-300">
-                            <div class="active-gradient w-full h-full text-lg justify-center text-[#101010] bg-[linear-gradient(#f4f4f4,#fefefe)] group-hover:bg-[linear-gradient(#e2e2e2,#fefefe)] duration-200 items-center font-medium gap-2 inline-flex overflow-hidden px-4 py-2 rounded-full group-hover:text-blue-600">
+                            <div class="active-gradient w-full h-full text-base md:text-lg justify-center text-[#101010] bg-[linear-gradient(#f4f4f4,#fefefe)] group-hover:bg-[linear-gradient(#e2e2e2,#fefefe)] duration-200 items-center font-medium gap-2 inline-flex overflow-hidden px-3 md:px-4 py-2 rounded-full group-hover:text-blue-600">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /> </svg>
-                                <span>Revisiones</span>
+                                <span class="hidden md:inline">Revisiones</span>
                             </div>
                         </div>
                     </button>
                     <button id="open-habilidades-btn" class="main-nav-btn group w-auto h-12 inline-flex transition-all duration-300 overflow-visible p-1 rounded-full">
                         <div class="w-full h-full bg-[linear-gradient(to_top,#ececec,#fff)] overflow-hidden shadow-[0_0_1px_rgba(0,0,0,0.07),0_0_1px_rgba(0,0,0,0.05),0_3px_3px_rgba(0,0,0,0.25),0_1px_3px_rgba(0,0,0,0.12)] p-1 rounded-full group-hover:shadow-none duration-300">
-                            <div class="active-gradient w-full h-full text-lg justify-center text-[#101010] bg-[linear-gradient(#f4f4f4,#fefefe)] group-hover:bg-[linear-gradient(#e2e2e2,#fefefe)] duration-200 items-center font-medium gap-2 inline-flex overflow-hidden px-4 py-2 rounded-full group-hover:text-blue-600">
+                            <div class="active-gradient w-full h-full text-base md:text-lg justify-center text-[#101010] bg-[linear-gradient(#f4f4f4,#fefefe)] group-hover:bg-[linear-gradient(#e2e2e2,#fefefe)] duration-200 items-center font-medium gap-2 inline-flex overflow-hidden px-3 md:px-4 py-2 rounded-full group-hover:text-blue-600">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /> </svg>
-                                <span>Habilidades</span>
+                                <span class="hidden md:inline">Habilidades</span>
                             </div>
                         </div>
                     </button>
                     <button id="open-tareas-btn" class="main-nav-btn group w-auto h-12 inline-flex transition-all duration-300 overflow-visible p-1 rounded-full">
                         <div class="w-full h-full bg-[linear-gradient(to_top,#ececec,#fff)] overflow-hidden shadow-[0_0_1px_rgba(0,0,0,0.07),0_0_1px_rgba(0,0,0,0.05),0_3px_3px_rgba(0,0,0,0.25),0_1px_3px_rgba(0,0,0,0.12)] p-1 rounded-full group-hover:shadow-none duration-300">
-                            <div class="active-gradient w-full h-full text-lg justify-center text-[#101010] bg-[linear-gradient(#f4f4f4,#fefefe)] group-hover:bg-[linear-gradient(#e2e2e2,#fefefe)] duration-200 items-center font-medium gap-2 inline-flex overflow-hidden px-4 py-2 rounded-full group-hover:text-blue-600">
+                            <div class="active-gradient w-full h-full text-base md:text-lg justify-center text-[#101010] bg-[linear-gradient(#f4f4f4,#fefefe)] group-hover:bg-[linear-gradient(#e2e2e2,#fefefe)] duration-200 items-center font-medium gap-2 inline-flex overflow-hidden px-3 md:px-4 py-2 rounded-full group-hover:text-blue-600">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a1 1 0 011-1h14a1 1 0 110 2H3a1 1 0 01-1-1z" /> </svg>
-                                <span>Tareas</span>
+                                <span class="hidden md:inline">Tareas</span>
                             </div>
                         </div>
                     </button>
@@ -185,21 +191,21 @@
         </header>
         
         <div class="flex flex-col lg:flex-row flex-grow overflow-hidden">
-            <aside class="w-full lg:w-80 bg-gray-100 p-6 flex flex-col space-y-6 border-b lg:border-r border-gray-200 overflow-y-auto">
+            <aside class="w-full lg:w-80 bg-gray-100 p-4 md:p-6 flex flex-col space-y-4 md:space-y-6 border-b lg:border-r border-gray-200 overflow-y-auto">
                 <div class="text-center bg-white p-4 rounded-xl shadow-lg">
-                    <div id="clock" class="text-3xl font-semibold text-gray-800"></div>
-                    <div id="date" class="text-lg text-gray-500"></div>
+                    <div id="clock" class="text-2xl md:text-3xl font-semibold text-gray-800"></div>
+                    <div id="date" class="text-base md:text-lg text-gray-500"></div>
                 </div>
 
                 <div class="flex-grow flex flex-col bg-white p-4 rounded-xl shadow-lg overflow-hidden">
-                    <h2 class="text-xl font-semibold mb-3 text-gray-700">Próximos Recordatorios</h2>
+                    <h2 class="text-lg md:text-xl font-semibold mb-3 text-gray-700">Próximos Recordatorios</h2>
                     <div id="reminders-list" class="space-y-2 overflow-y-auto pr-2 max-h-40 lg:max-h-full">
                     </div>
                 </div>
                 
                  <div class="bg-white p-4 rounded-xl shadow-lg">
-                    <h2 class="text-lg font-semibold mb-3 text-gray-700">Copia de Seguridad</h2>
-                    <div class="flex space-x-2">
+                    <h2 class="text-base md:text-lg font-semibold mb-3 text-gray-700">Copia de Seguridad</h2>
+                    <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
                         <button id="export-data-btn" class="btn btn-secondary w-full text-sm">Exportar Datos</button>
                         <button id="import-data-btn" class="btn btn-secondary w-full text-sm">Importar Datos</button>
                         <input type="file" id="import-file-input" class="hidden" accept=".json">
@@ -207,7 +213,7 @@
                 </div>
             </aside>
 
-            <main class="flex-1 p-4 sm:p-6 lg:p-8 flex flex-col overflow-y-auto">
+            <main class="flex-1 p-2 sm:p-4 md:p-6 lg:p-8 flex flex-col overflow-y-auto">
                 <div class="bg-white rounded-xl shadow-lg flex-grow flex flex-col">
                     <header class="flex flex-col sm:flex-row items-center justify-between p-4 border-b border-gray-200 gap-4 sm:gap-2">
                         <div class="flex items-center space-x-2">
@@ -719,7 +725,7 @@
                     const isToday = year === today.getFullYear() && month === today.getMonth() && day === today.getDate();
                     
                     let dayCellHTML = `<div class="calendar-day relative p-2 border-r border-b border-gray-200 cursor-pointer hover:bg-gray-100 transition-colors flex flex-col" data-date="${dateKey}">`;
-                    dayCellHTML += `<span class="text-sm ${isToday ? 'bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center font-semibold' : ''}">${day}</span>`;
+                    dayCellHTML += `<span class="text-xs sm:text-sm ${isToday ? 'bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center font-semibold' : ''}">${day}</span>`;
 
                     if (data.calendar[dateKey] && data.calendar[dateKey].events && data.calendar[dateKey].events.length > 0) {
                         dayCellHTML += '<div class="flex flex-wrap gap-1 mt-1">';
