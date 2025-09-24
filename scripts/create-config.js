@@ -1,19 +1,27 @@
 const fs = require('fs');
+const path = require('path');
 
-// Lee la configuración de Firebase desde una variable de entorno.
-// El contenido de la variable debe ser el objeto de configuración de Firebase en formato JSON string.
-const configJsonString = process.env.FIREBASE_CONFIG;
+const PUBLIC_DIR = 'public';
 
-if (!configJsonString) {
-  console.error('ERROR: La variable de entorno FIREBASE_CONFIG no fue encontrada.');
-  console.error('Asegúrate de configurar esta variable en Vercel con el JSON de tu configuración de Firebase.');
-  process.exit(1);
+// 1. Crear el directorio 'public' si no existe
+if (!fs.existsSync(PUBLIC_DIR)){
+    fs.mkdirSync(PUBLIC_DIR);
 }
 
-// Crea el contenido para el archivo firebase-config.js.
-// Esto asigna el string JSON a la variable global __firebase_config.
+// 2. Crear firebase-config.js dentro de la carpeta 'public'
+const configJsonString = process.env.FIREBASE_CONFIG;
+if (!configJsonString) {
+  console.error('ERROR: La variable de entorno FIREBASE_CONFIG no fue encontrada.');
+  process.exit(1);
+}
 const fileContent = `const __firebase_config = '${configJsonString}';`;
+fs.writeFileSync(path.join(PUBLIC_DIR, 'firebase-config.js'), fileContent, 'utf8');
+console.log('El archivo public/firebase-config.js fue creado exitosamente.');
 
-// Escribe el archivo en la raíz del proyecto.
-fs.writeFileSync('firebase-config.js', fileContent, 'utf8');
-console.log('El archivo firebase-config.js fue creado exitosamente para el despliegue.');
+// 3. Copiar index.html a la carpeta 'public'
+fs.copyFileSync('index.html', path.join(PUBLIC_DIR, 'index.html'));
+console.log('index.html fue copiado a /public exitosamente.');
+
+// 4. Copiar src/app.js a la carpeta 'public'
+fs.copyFileSync(path.join('src', 'app.js'), path.join(PUBLIC_DIR, 'app.js'));
+console.log('src/app.js fue copiado a /public exitosamente.');
