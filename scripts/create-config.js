@@ -23,7 +23,6 @@ let fileContent;
 
 if (firebaseConfig.apiKey && firebaseConfig.projectId) {
   const configJsonString = JSON.stringify(firebaseConfig);
-  console.log('DEBUG: configJsonString generado:', configJsonString);
   fileContent = `const __firebase_config = '${configJsonString}';`;
   console.log('El archivo public/firebase-config.js fue creado exitosamente desde las variables de entorno.');
 } else {
