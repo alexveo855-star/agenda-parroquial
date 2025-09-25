@@ -104,7 +104,7 @@
                                 <p>Si ya lo has hecho, es posible que necesites refrescar la página.</p>
                             </div>
                         </div>`;
-                    return;
+                    return false;
                 }
                 
                 if (!firebaseConfig.apiKey || firebaseConfig.apiKey === "AQUI_VA_TU_API_KEY") {
@@ -116,7 +116,7 @@
                                 <p>Por favor, <strong>edita el código fuente de este archivo HTML</strong> y sigue las instrucciones dentro de la función <code>initFirebase</code> para añadir tu configuración.</p>
                             </div>
                         </div>`;
-                    return;
+                    return false;
                 }
                 
                 const app = initializeApp(firebaseConfig);
@@ -132,6 +132,7 @@
                         handleLogout();
                     }
                 });
+                return true;
             }
 
             loginForm.addEventListener('submit', async (e) => {
@@ -374,8 +375,10 @@
             }
 
             // --- Event Listeners and other functions ---
-            function init() {
-                initFirebase();
+            async function init() {
+                const firebaseReady = await initFirebase();
+                if (!firebaseReady) return;
+
                 setInterval(updateClock, 1000);
                 updateClock();
                 renderCalendar();
