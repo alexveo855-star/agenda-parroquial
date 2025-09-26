@@ -391,17 +391,17 @@
                 setInterval(updateClock, 1000);
                 updateClock();
                 renderCalendar();
-                prevMonthBtn.addEventListener('click', () => { currentDate.setMonth(currentDate.getMonth() - 1); renderCalendar(); });
-                nextMonthBtn.addEventListener('click', () => { currentDate.setMonth(currentDate.getMonth() + 1); renderCalendar(); });
-                todayBtn.addEventListener('click', () => { currentDate = new Date(); renderCalendar(); });
-                calendarDaysEl.addEventListener('click', (e) => {
+                if (prevMonthBtn) prevMonthBtn.addEventListener('click', () => { currentDate.setMonth(currentDate.getMonth() - 1); renderCalendar(); });
+                if (nextMonthBtn) nextMonthBtn.addEventListener('click', () => { currentDate.setMonth(currentDate.getMonth() + 1); renderCalendar(); });
+                if (todayBtn) todayBtn.addEventListener('click', () => { currentDate = new Date(); renderCalendar(); });
+                if (calendarDaysEl) calendarDaysEl.addEventListener('click', (e) => {
                     const dayCell = e.target.closest('.calendar-day');
                     if (dayCell && dayCell.dataset.date) {
                         // openDayModal(dayCell.dataset.date);
                     }
                 });
-                openDirectoryBtn.addEventListener('click', () => modalManager.open(document.getElementById('directory-modal'), openDirectoryBtn));
-                openAgendaBtn.addEventListener('click', () => {
+                if (openDirectoryBtn) openDirectoryBtn.addEventListener('click', () => modalManager.open(document.getElementById('directory-modal'), openDirectoryBtn));
+                if (openAgendaBtn) openAgendaBtn.addEventListener('click', () => {
                     const manualModal = document.getElementById('manual-modal');
                     const agendaContent = document.getElementById('tab-content-agenda');
                     
@@ -417,11 +417,12 @@
                     agendaContent.classList.add('active');
                 });
 
-                openAnunciosBtn.addEventListener('click', () => {
+                if (openAnunciosBtn) openAnunciosBtn.addEventListener('click', () => {
                     modalManager.open(document.getElementById('anuncios-modal'), openAnunciosBtn);
                 });
 
-                document.getElementById('add-anuncio-form').addEventListener('submit', async (e) => {
+                const addAnuncioForm = document.getElementById('add-anuncio-form');
+                if (addAnuncioForm) addAnuncioForm.addEventListener('submit', async (e) => {
                     e.preventDefault();
                     const titleInput = document.getElementById('anuncio-title');
                     const contentInput = document.getElementById('anuncio-content');
@@ -445,7 +446,8 @@
                     }
                 });
 
-                document.getElementById('anuncios-list').addEventListener('click', async (e) => {
+                const anunciosList = document.getElementById('anuncios-list');
+                if (anunciosList) anunciosList.addEventListener('click', async (e) => {
                     if (e.target.classList.contains('delete-anuncio-btn') && currentUserIsParroco) {
                         const anuncioId = e.target.dataset.id;
                         // Using a simple confirm dialog for now
@@ -468,7 +470,7 @@
                     }
                 });
 
-                 openRevisionesBtn.addEventListener('click', () => {
+                 if (openRevisionesBtn) openRevisionesBtn.addEventListener('click', () => {
                     const manualModal = document.getElementById('manual-modal');
                     const revisionesContent = document.getElementById('tab-content-revisiones');
                     
@@ -478,7 +480,7 @@
                     revisionesContent.classList.add('active');
                 });
 
-                openHabilidadesBtn.addEventListener('click', () => {
+                if (openHabilidadesBtn) openHabilidadesBtn.addEventListener('click', () => {
                     const manualModal = document.getElementById('manual-modal');
                     const habilidadesContent = document.getElementById('tab-content-habilidades');
                     
@@ -488,7 +490,7 @@
                     habilidadesContent.classList.add('active');
                 });
 
-                openTareasBtn.addEventListener('click', () => {
+                if (openTareasBtn) openTareasBtn.addEventListener('click', () => {
                     modalManager.open(document.getElementById('add-task-modal'), openTareasBtn);
                 });
 
