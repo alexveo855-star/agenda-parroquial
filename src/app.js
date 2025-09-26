@@ -160,7 +160,10 @@
                 } catch (error) {
                     console.error("Error signing in with Google:", error);
                     const loginError = document.getElementById('login-error');
-                    if (loginError) loginError.textContent = "Error al iniciar sesión con Google.";
+                    if (loginError) {
+                        loginError.textContent = `Error Google: ${error.code}`;
+                        console.error("Detailed Google Sign-in Error:", error);
+                    }
                 }
             });
             
