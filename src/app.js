@@ -134,38 +134,45 @@
                 return true;
             }
 
-            loginForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const email = document.getElementById('login-email').value;
-                const password = document.getElementById('login-password').value;
-                const loginError = document.getElementById('login-error');
-                loginError.textContent = ''; // Clear previous errors
-
-                try {
-                    await signInWithEmailAndPassword(auth, email, password);
-                } catch (error) {
-                    console.error("Error signing in with email/password:", error);
-                    if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
-                        loginError.textContent = 'Correo o contraseña incorrectos.';
-                    } else {
-                        loginError.textContent = 'Error al iniciar sesión.';
-                    }
-                }
-            });
-
-            document.getElementById('google-login-btn').addEventListener('click', async () => {
-                const provider = new GoogleAuthProvider();
-                try {
-                    await signInWithPopup(auth, provider);
-                } catch (error) {
-                    console.error("Error signing in with Google:", error);
+            if (loginForm) {
+                loginForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const email = document.getElementById('login-email').value;
+                    const password = document.getElementById('login-password').value;
                     const loginError = document.getElementById('login-error');
-                    if (loginError) {
-                        loginError.textContent = `Error Google: ${error.code}`;
-                        console.error("Detailed Google Sign-in Error:", error);
+                    if (loginError) loginError.textContent = ''; // Clear previous errors
+
+                    try {
+                        await signInWithEmailAndPassword(auth, email, password);
+                    } catch (error) {
+                        console.error("Error signing in with email/password:", error);
+                        if (loginError) {
+                            if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
+                                loginError.textContent = 'Correo o contraseña incorrectos.';
+                            } else {
+                                loginError.textContent = 'Error al iniciar sesión.';
+                            }
+                        }
                     }
-                }
-            });
+                });
+            }
+
+            const googleLoginBtn = document.getElementById('google-login-btn');
+            if (googleLoginBtn) {
+                googleLoginBtn.addEventListener('click', async () => {
+                    const provider = new GoogleAuthProvider();
+                    try {
+                        await signInWithPopup(auth, provider);
+                    } catch (error) {
+                        console.error("Error signing in with Google:", error);
+                        const loginError = document.getElementById('login-error');
+                        if (loginError) {
+                            loginError.textContent = `Error Google: ${error.code}`;
+                            console.error("Detailed Google Sign-in Error:", error);
+                        }
+                    }
+                });
+            }
             
             function handleLoginSuccess(userName, isParroco) {
                 currentUser = userName;
