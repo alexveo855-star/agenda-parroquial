@@ -408,6 +408,32 @@
                     // Lazy load content if it's not there
                     if(!agendaContent.innerHTML) {
                          agendaContent.innerHTML = `<div class="grid grid-cols-1 md:grid-cols-3 gap-6 h-full"><div class="md:col-span-1 bg-white p-4 rounded-lg shadow-sm"><h4 id="agenda-form-title" class="text-lg font-semibold mb-4 text-gray-700">Añadir Evento</h4><form id="agenda-form" class="space-y-4"><input type="hidden" id="agenda-edit-id"><div><label for="agenda-date" class="block text-sm font-medium text-gray-600">Fecha y Hora</label><input type="datetime-local" id="agenda-date" class="form-input" required></div><div><label for="agenda-activity" class="block text-sm font-medium text-gray-600">Actividad</label><input type="text" id="agenda-activity" class="form-input" placeholder="Ej. Misa de Bodas" required></div><div><label for="agenda-place" class="block text-sm font-medium text-gray-600">Lugar</label><input type="text" id="agenda-place" class="form-input" placeholder="Ej. Templo principal"></div><div><label for="agenda-contact" class="block text-sm font-medium text-gray-600">Contacto (Nombre y Teléfono)</label><input type="text" id="agenda-contact" class="form-input" placeholder="Ej. Familia Pérez - 2281234567"></div><div><label for="agenda-notes" class="block text-sm font-medium text-gray-600">Notas Adicionales</label><textarea id="agenda-notes" rows="3" class="form-input" placeholder="Detalles, preparativos, etc."></textarea></div><div class="flex space-x-2"><button type="submit" id="agenda-submit-btn" class="btn btn-primary w-full">Guardar</button><button type="button" id="agenda-cancel-btn" class="btn btn-secondary w-full hidden">Cancelar</button></div></form></div><div class="md:col-span-2 bg-white p-4 rounded-lg shadow-sm flex flex-col"><h4 class="text-lg font-semibold mb-4 text-gray-700">Próximos Eventos</h4><div id="agenda-list" class="space-y-3 overflow-y-auto flex-grow"></div></div></div>`;
+                         
+                         const agendaForm = document.getElementById('agenda-form');
+                         if(agendaForm) {
+                             agendaForm.addEventListener('submit', async (e) => {
+                                 e.preventDefault();
+                                 const activity = document.getElementById('agenda-activity').value.trim();
+                                 const date = document.getElementById('agenda-date').value;
+                                 if (activity && date) {
+                                     try {
+                                         await addDoc(getCollectionRef('agenda'), {
+                                             activity,
+                                             date,
+                                             place: document.getElementById('agenda-place').value.trim(),
+                                             contact: document.getElementById('agenda-contact').value.trim(),
+                                             notes: document.getElementById('agenda-notes').value.trim(),
+                                             createdBy: currentUser,
+                                             createdAt: Date.now()
+                                         });
+                                         agendaForm.reset();
+                                     } catch (error) {
+                                         console.error("Error adding agenda event: ", error);
+                                         alert('Hubo un error al guardar el evento.');
+                                     }
+                                 }
+                             });
+                         }
                     }
 
                     renderAgenda();
