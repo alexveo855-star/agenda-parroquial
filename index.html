@@ -152,7 +152,8 @@
                 <h1 class="text-xl md:text-2xl font-bold text-gray-800 flex-shrink-0">Asistente Parroquial</h1>
             </div>
 
-            <div class="flex flex-wrap items-center gap-2 md:gap-4">
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex flex-wrap items-center gap-2 md:gap-4">
                 <nav class="flex items-center gap-1 md:gap-2">
                     <button id="open-directory-btn" class="main-nav-btn group w-auto h-12 inline-flex transition-all duration-300 overflow-visible p-1 rounded-full">
                         <div class="w-full h-full bg-[linear-gradient(to_top,#ececec,#fff)] overflow-hidden shadow-[0_0_1px_rgba(0,0,0,0.07),0_0_1px_rgba(0,0,0,0.05),0_3px_3px_rgba(0,0,0,0.25),0_1px_3px_rgba(0,0,0,0.12)] p-1 rounded-full group-hover:shadow-none duration-300">
@@ -208,7 +209,27 @@
                 </nav>
                 <div id="current-user-display" class="text-sm text-gray-700 font-semibold hidden bg-gray-100 px-3 py-1 rounded-full items-center gap-2"></div>
             </div>
+
+            <!-- Hamburger Button -->
+            <div class="md:hidden flex items-center">
+                <button id="hamburger-btn" class="p-2 rounded-md text-gray-500 focus:outline-none">
+                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24"><path id="hamburger-open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+            </div>
         </header>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-gray-200">
+            <nav class="flex flex-col p-4 gap-3">
+                <button id="mobile-open-directory-btn" class="text-left text-base font-medium text-gray-700 hover:text-[var(--primary-color)]">Directorio</button>
+                <button id="mobile-open-agenda-btn" class="text-left text-base font-medium text-gray-700 hover:text-[var(--primary-color)]">Agenda</button>
+                <button id="mobile-open-anuncios-btn" class="text-left text-base font-medium text-gray-700 hover:text-[var(--primary-color)]">Anuncios</button>
+                <hr/>
+                <button id="mobile-open-revisiones-btn" class="text-left text-base font-medium text-gray-700 hover:text-[var(--primary-color)]">Revisiones</button>
+                <button id="mobile-open-habilidades-btn" class="text-left text-base font-medium text-gray-700 hover:text-[var(--primary-color)]">Habilidades</button>
+                <button id="mobile-open-tareas-btn" class="text-left text-base font-medium text-gray-700 hover:text-[var(--primary-color)]">Tareas</button>
+            </nav>
+        </div>
         
         <div class="flex flex-col lg:flex-row flex-grow overflow-hidden">
             <aside class="w-full lg:w-80 bg-gray-100 p-4 md:p-6 flex flex-col space-y-4 md:space-y-6 border-b lg:border-r border-gray-200 overflow-y-auto">
