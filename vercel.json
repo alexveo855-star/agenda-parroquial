@@ -1,5 +1,4 @@
 {
-  "outputDirectory": "public",
   "headers": [
     {
       "source": "/(.*)",
@@ -10,15 +9,5 @@
         }
       ]
     }
-  ],
-  "build": {
-    "env": {
-      "NODE_ENV": "production"
-    },
-    "command": "npm run build"
-  },
-  "routes": [
-    { "src": "/src/(.*)", "dest": "/public/src/$1" },
-    { "src": "/(.*)", "dest": "/public/$1" }
   ]
 }

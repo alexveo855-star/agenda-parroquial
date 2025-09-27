@@ -1,7 +1,7 @@
 {
   "scripts": {
     "prebuild": "node scripts/create-config.js",
-    "build": "postcss ./src/input.css -o ./public/output.css && copyfiles -u 1 ./src/**/*.js ./public && copyfiles index.html ./public"
+    "build": "postcss ./src/input.css -o ./public/output.css"
   },
   "devDependencies": {
     "tailwindcss": "^3.4.1",
