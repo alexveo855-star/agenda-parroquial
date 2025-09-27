@@ -1,12 +1,13 @@
 {
   "scripts": {
     "prebuild": "node scripts/create-config.js",
-    "build": "npx postcss ./src/input.css -o ./public/output.css"
+    "build": "postcss ./src/input.css -o ./public/output.css && copyfiles -u 1 ./src/**/*.js ./public && copyfiles index.html ./public"
   },
   "devDependencies": {
     "tailwindcss": "^3.4.1",
     "postcss": "^8.4.33",
     "autoprefixer": "^10.4.17",
-    "postcss-cli": "^11.0.0"
+    "postcss-cli": "^11.0.0",
+    "copyfiles": "^2.4.1"
   }
 }
