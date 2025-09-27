@@ -262,7 +262,7 @@
                     const today = new Date();
                     const isToday = year === today.getFullYear() && month === today.getMonth() && day === today.getDate();
                     
-                    <input type="email" id="login-email" class="form-input" required autocomplete="username">
+                    let dayCellHTML = `<div class="calendar-day relative p-1 sm:p-2 border-r border-b border-gray-200 cursor-pointer hover:bg-gray-100 transition-colors flex flex-col" data-date="${dateKey}">`;
                     dayCellHTML += `<span class="text-xs sm:text-sm ${isToday ? 'bg-[var(--primary-color)] text-white rounded-full w-6 h-6 flex items-center justify-center font-semibold' : ''}">${day}</span>`;
 
                     if (data.calendar[dateKey] && data.calendar[dateKey].events && data.calendar[dateKey].events.length > 0) {
